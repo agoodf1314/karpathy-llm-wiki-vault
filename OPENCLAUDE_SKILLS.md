@@ -1,14 +1,22 @@
-# OpenClaw LLM Wiki Skills — 從 Claude Code 移植版本
+# OpenClaw LLM Wiki Skills
 
-## 背景
+## 存放位置
 
-2026-06-12，OpenClaw 升級至 6.x 後，workspace skills 消失。從 `karpathy-llm-wiki-vault` 原始檔復原並移植為 OpenClaw 原生格式。
+```
+karpathy-llm-wiki-vault/
+├── OPENCLAUDE.md              # OpenClaw 版核心規範（主定義檔）
+└── openclaw/
+    └── skills/
+        ├── llm-wiki-ingest/   # 知識攝取
+        ├── llm-wiki-query/    # 知識查詢
+        └── llm-wiki-lint/     # 健康巡檢
+```
 
 ## 與 Claude Code 版本的差異
 
 | 項目 | Claude Code 版 | OpenClaw 版 |
 |------|--------------|------------|
-| Skill 目錄 | `.claude/skills/` | `~/.openclaw/workspace/skills/` |
+| Skill 目錄 | `.claude/skills/` | `openclaw/skills/` |
 | Vault 路徑 | `raw/`、`wiki/` | `~/obsidian/01-raw/`、`~/obsidian/02-wiki/` |
 | 觸發方式 | `/ingest` 等命令 | OpenClaw trigger + `user-invocable: true` |
 | 語言 | 簡體中文 | 繁體中文 |
@@ -76,5 +84,5 @@
 
 ## 相關檔案
 
-- OpenClaw Skills（實際位置）：`~/.openclaw/workspace/skills/llm-wiki-ingest/` 等
+- OpenClaw 版核心規範：`openclaw/OPENCLAUDE.md`（也在 workspace 有副本）
 - 系統重建記錄：`~/obsidian/02-wiki/syntheses/OpenClaw-6.x-系統重建記錄-2026-06-12.md`
