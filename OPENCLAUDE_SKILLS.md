@@ -9,7 +9,8 @@ karpathy-llm-wiki-vault/
     └── skills/
         ├── llm-wiki-ingest/   # 知識攝取
         ├── llm-wiki-query/    # 知識查詢
-        └── llm-wiki-lint/     # 健康巡檢
+        ├── llm-wiki-lint/     # 健康巡檢
+        └── llm-wiki-refresh/  # 定期迭代
 ```
 
 ## 與 Claude Code 版本的差異
@@ -22,7 +23,7 @@ karpathy-llm-wiki-vault/
 | 語言 | 簡體中文 | 繁體中文 |
 | 工具呼叫 | Claude Code 內建 | OpenClaw `read`、`exec`、`write` 等工具 |
 
-## 三個核心 Skill
+## 四個核心 Skill
 
 ### 1. Ingest（知識攝取）
 將 `01-raw/` 原始資料編譯到 `02-wiki/` 並歸檔。
@@ -42,6 +43,24 @@ karpathy-llm-wiki-vault/
 掃描 wiki/ 檢測死鏈、孤兒頁面、未同步索引和知識衝突。
 
 **流程：** 索引一致性檢查 → 雙向連結健康檢查 → 認知衝突審查 → 輸出結構化報告
+
+### 4. Refresh（定期迭代）
+每週檢查 wiki 現有頁面，確保知識不會隨時間過期或退化。基於 Rohit Ghumare v2 Memory Lifecycle 概念。
+
+**流程：** 找出需要檢視的頁面（60天+未驗證優先）→ 搜尋相關新資訊 → 更新 last_verified/confidence → 標記矛盾 → 記錄 log.md
+
+**觸發：** 每週日上午 8:00 自動執行（cron job），或手動 `/refresh`
+
+**Cron Job ID：** `c976f51a-b431-451b-9990-38abf55d5c5b`
+
+## 四個 Skill 一覽
+
+| Skill | 功能 | Cron |
+|-------|------|------|
+| `llm-wiki-ingest` | 知識攝取 | 手動 |
+| `llm-wiki-query` | 知識查詢 | 手動 |
+| `llm-wiki-lint` | 健康巡檢 | 手動 |
+| `llm-wiki-refresh` | 定期迭代 | 每週日 08:00 |
 
 ## Vault 路徑（OpenClaw 版）
 
@@ -86,3 +105,6 @@ karpathy-llm-wiki-vault/
 
 - OpenClaw 版核心規範：`openclaw/OPENCLAUDE.md`（也在 workspace 有副本）
 - 系統重建記錄：`~/obsidian/02-wiki/syntheses/OpenClaw-6.x-系統重建記錄-2026-06-12.md`
+
+## Commit
+- `9bf3b65` — Add llm-wiki-refresh skill
