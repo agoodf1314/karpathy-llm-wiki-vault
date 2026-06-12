@@ -43,10 +43,14 @@ contradicts: page-slug        # 與某知識矛盾（選填）
 1. 讀取頁面內容
 2. 搜尋相關新資訊（網路搜尋該主題是否有更新）
 3. 判斷是否需要更新：
-   - 資訊仍正確 → 更新 `last_verified` 為今天，`confidence` 可維持或提升
-   - 有部分過期 → 更新內容 + 更新 `last_verified`
+   - 資訊仍正確 → 更新 `last_verified` 為今天（不改 `last_updated`）
+   - 有部分過期 → 更新內容 + 同時更新 `last_verified` 和 `last_updated`
    - 已被新知識取代 → 加入 `superseded_by: [新頁面slug]`，建議設 `confidence: low`
    - 發現矛盾 → 加入 `contradicts: [矛盾頁面slug]`，兩者都保留
+
+**欄位區分：**
+- `last_updated` = 內容最後修改時間（只因內容變動而更新）
+- `last_verified` = 最後驗證時間（每次 refresh 確認後更新）
 
 ### Step 3：更新 TL;DR（如有）
 確保頁面頂端仍有 ≤50 字 TL;DR，沒有的話補上。

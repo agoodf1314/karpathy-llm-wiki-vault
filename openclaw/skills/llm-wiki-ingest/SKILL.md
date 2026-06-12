@@ -39,7 +39,12 @@ type: source
 tags: [來源, 原始文件]
 sources: [raw/01-articles/xxx.md]
 last_updated: YYYY-MM-DD
+last_verified: YYYY-MM-DD
+confidence: high
 ---
+
+## TL;DR
+[≤50字的核心摘要]
 
 ## 核心摘要
 [3-5句話總結]
@@ -49,15 +54,17 @@ last_updated: YYYY-MM-DD
 - [[ConceptName]]
 ```
 
-### Step 5：建立/更新實體或概念頁面
+### Step 5：建立/更新實體或概念頁面（Ripple Effect）
 - 實體 → `02-wiki/entities/`
 - 概念 → `02-wiki/concepts/`
 
-**衝突處理**：發現衝突 → 立即暫停，回報用戶，詢問（A:保留兩者/B:覆蓋/C:放棄）
+**每個 ingest 平均會觸碰 8-12 個現有頁面**，不只是建一個新頁面：
+- 檢查相關現有 entity/concept 頁面是否需要加雙鏈
+- 檢查是否與現有頁面矛盾，若矛盾 → 加入 `contradicts: [頁面slug]`，**兩者都保留，不覆蓋**
 
 ### Step 6：更新 index.md + log.md
 - index.md：新增 Sources/Entities/Concepts 條目
-- log.md：Append 操作日誌
+- log.md：Append 操作日誌，註明「觸碰了 N 個現有頁面」
 
 ### Step 7：歸檔
 移至 `01-raw/09-archive/`
@@ -67,4 +74,6 @@ last_updated: YYYY-MM-DD
 ## 注意事項
 - 絕對不讀取 `09-archive/` 下的任何檔案
 - 每個 wiki 頁面必須包含 `## 關聯連接` 區塊
+- 每個 wiki 頁面頂端必須有 `## TL;DR`（≤50字）
 - 不得產生孤島頁面
+- **Contradiction Protocol**：發現衝突 → 加 `contradicts:` 標記，兩者都保留，絕不覆蓋舊知識

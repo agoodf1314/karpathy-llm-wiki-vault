@@ -28,6 +28,11 @@ user-invocable: true
 ### Step 3：認知衝突審查
 全局搜尋包含 `## 知識衝突` 的頁面。
 
+### Step 4：過期頁面檢查
+1. 檢查所有 `.md` 的 frontmatter 是否具備 `last_verified` 欄位
+2. 60 天以上未驗證 → 列入「需 refresh」清單
+3. 缺少 `confidence` 欄位 → 列入「需補欄位」清單
+
 ## 報告格式
 ```markdown
 ## 🩺 知識庫健康體檢報告 — YYYY-MM-DD
